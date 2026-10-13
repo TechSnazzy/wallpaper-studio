@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Wallpaper Studio</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ===== TOP BAR ===== -->
+  <header id="top">
+    <div class="logo" aria-label="Wallpaper Studio">
+      <div class="logo-line l1"><span>W</span><span>a</span><span>l</span><span>l</span><span>p</span><span>a</span><span>p</span><span>e</span><span>r</span></div>
+      <div class="logo-line l2"><span>S</span><span>t</span><span>u</span><span>d</span><span>i</span><span>o</span></div>
+    </div>
+
+    <button id="mascot" class="mascot" aria-label="Paintbrush friend">
+      <svg viewBox="0 0 60 100" aria-hidden="true">
+        <defs>
+          <linearGradient id="bristle" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0" stop-color="#ff4d4d"/><stop offset=".25" stop-color="#ffb02e"/>
+            <stop offset=".5" stop-color="#5ed05e"/><stop offset=".75" stop-color="#3fa9f5"/>
+            <stop offset="1" stop-color="#a45be0"/>
+          </linearGradient>
+        </defs>
+        <g transform="rotate(14 30 55)">
+          <path d="M17 38 C14 18 30 3 33 3 C33 3 46 18 43 38 Z" fill="url(#bristle)" stroke="#6b4423" stroke-width="2.5" stroke-linejoin="round"/>
+          <rect x="15" y="37" width="30" height="30" rx="7" fill="#fff8ec" stroke="#6b4423" stroke-width="2.5"/>
+          <circle cx="24" cy="49" r="2.8" fill="#4a2f1a"/><circle cx="36" cy="49" r="2.8" fill="#4a2f1a"/>
+          <circle cx="20.5" cy="55" r="3" fill="#ff9db8" opacity=".8"/><circle cx="39.5" cy="55" r="3" fill="#ff9db8" opacity=".8"/>
+          <path d="M25 56 Q30 62 35 56" fill="none" stroke="#4a2f1a" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M23 67 H37 L35 92 Q30 98 25 92 Z" fill="#f4a95c" stroke="#6b4423" stroke-width="2.5" stroke-linejoin="round"/>
+        </g>
+      </svg>
+    </button>
+
+    <div id="bubble" class="bubble"><span id="tip">Try the rainbow brush!</span></div>
+
+    <div class="spacer"></div>
+
+    <button id="undo" class="btn top-btn" aria-label="Undo">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M20 10 6 22l14 12v-8c9 0 16 3 20 12 0-12-8-22-20-22z" fill="#8a5a2b"/></svg>
+      <span>Undo</span>
+    </button>
+    <button id="redo" class="btn top-btn" aria-label="Redo">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M28 10l14 12-14 12v-8c-9 0-16 3-20 12 0-12 8-22 20-22z" fill="#8a5a2b"/></svg>
+      <span>Redo</span>
+    </button>
+    <button id="startover" class="btn top-btn wide" aria-label="Start Over">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="9" y="12" width="30" height="5" rx="2.5" fill="#8a5a2b"/>
+        <rect x="19" y="7" width="10" height="6" rx="2" fill="#8a5a2b"/>
+        <path d="M12 19h24l-2 21a3 3 0 0 1-3 3H17a3 3 0 0 1-3-3z" fill="#a9a29a" stroke="#8a5a2b" stroke-width="2"/>
+        <path d="M19 23v15M24 23v15M29 23v15" stroke="#6d665e" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <span>Start<br>Over</span>
+    </button>
+    <button id="save" class="save-btn" aria-label="Save to My Computer">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M20 4h8v18h9L24 36 11 22h9z" fill="#fff"/><path d="M8 32v8h32v-8" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Save to<br>My Computer</span>
+      <i class="star-badge" aria-hidden="true">★</i>
+    </button>
+  </header>
+
+  <!-- ===== MIDDLE ===== -->
+  <main id="middle">
+    <nav id="tools" aria-label="Tools"></nav>
+
+    <section id="stage-panel">
+      <div class="panel-title">
+        <span>My Wallpaper</span>
+        <button id="mute" class="mute" aria-label="Sound on/off" title="Sound on/off">🔊</button>
+      </div>
+      <div id="stage-area">
+        <div id="stage">
+          <canvas id="bg-canvas" width="1920" height="1080"></canvas>
+          <canvas id="draw-canvas" width="1920" height="1080"></canvas>
+          <canvas id="stroke-canvas" width="1920" height="1080"></canvas>
+          <div id="cursor" class="hidden" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <aside id="side">
+      <div class="side-box">
+        <h2>Stamps &amp; Stickers</h2>
+        <div id="stickers" class="grid3"></div>
+      </div>
+      <div class="side-box">
+        <h2>Background Patterns</h2>
+        <div id="patterns" class="grid3"></div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- ===== BOTTOM BAR ===== -->
+  <footer id="bottom">
+    <div id="sizes" class="sizes" aria-label="Brush size"><div id="size-buttons"></div><span class="size-label">Brush Size</span></div>
+    <div id="swatches" class="swatches" aria-label="Colors"></div>
+    <button id="rainbow" class="special" aria-label="Rainbow colors">
+      <span class="orb rainbow-orb"></span><span class="lbl">Rainbow</span>
+    </button>
+    <button id="mystery" class="special" aria-label="Mystery color">
+      <span class="orb mystery-orb"><b>?</b></span><span class="lbl">Mystery</span>
+    </button>
+  </footer>
+</div>
+
+<!-- ===== DIALOG ===== -->
+<div id="overlay" class="overlay hidden" role="dialog" aria-modal="true">
+  <div class="dialog">
+    <div id="dlg-emoji" class="dlg-emoji"></div>
+    <h3 id="dlg-title"></h3>
+    <p id="dlg-text"></p>
+    <div id="dlg-buttons" class="dlg-buttons"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
